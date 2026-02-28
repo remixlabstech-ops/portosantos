@@ -294,7 +294,9 @@ INSERT IGNORE INTO `configuracoes` (`chave`, `valor`) VALUES
   ('moeda', 'BRL'),
   ('fuso_horario', 'America/Sao_Paulo');
 
--- WARNING: Change this password immediately after deployment.
--- Run: UPDATE usuarios SET senha = '$2y$12$...' WHERE email = 'admin@portosantos.adv.br';
-INSERT IGNORE INTO `usuarios` (`nome`, `email`, `senha`, `perfil`, `ativo`) VALUES
-  ('Administrador', 'admin@portosantos.adv.br', '$2y$12$placeholder_change_on_deploy', 'admin', 1);
+-- To create the initial admin user, run the following PHP snippet once on the server
+-- and replace the generated hash below:
+--   php -r "echo password_hash('YOUR_STRONG_PASSWORD', PASSWORD_BCRYPT, ['cost'=>12]);"
+-- Then execute:
+--   INSERT INTO `usuarios` (`nome`, `email`, `senha`, `perfil`, `ativo`)
+--     VALUES ('Administrador', 'admin@portosantos.adv.br', '<hash_above>', 'admin', 1);
