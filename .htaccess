@@ -1,0 +1,6 @@
+Options -Indexes
+<FilesMatch "\.(env|sql|gitkeep)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+DirectoryIndex index.php

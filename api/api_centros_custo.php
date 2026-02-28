@@ -8,16 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit(0); }
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/BaseModel.php';
-require_once __DIR__ . '/../models/Entrada.php';
+require_once __DIR__ . '/../models/CentroCusto.php';
 require_once __DIR__ . '/../controllers/BaseController.php';
-require_once __DIR__ . '/../controllers/EntradaController.php';
+require_once __DIR__ . '/../controllers/CentroCustoController.php';
 
-$controller = new EntradaController();
+$controller = new CentroCustoController();
 $action     = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'listar':
-        echo json_encode($controller->index($_GET));
+        echo json_encode($controller->index());
         break;
     case 'criar':
         $data = json_decode(file_get_contents('php://input'), true) ?? [];
