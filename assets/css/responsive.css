@@ -1,0 +1,42 @@
+/*
+ * Porto Santos ERP - Responsive CSS
+ */
+
+/* ── Tablet ───────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .rankings-row { grid-template-columns: 1fr; }
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 0px;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: var(--shadow-md);
+    }
+    .main-content { margin-left: 0; padding: 1rem; }
+
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+    .logo-text  { display: none; }
+
+    .modal-dialog { margin: 1rem; max-width: calc(100vw - 2rem); }
+
+    .form-row { flex-direction: column; }
+    .form-row .form-group { min-width: 100%; }
+
+    .rankings-row { grid-template-columns: 1fr; }
+
+    .faixas-btn-group { gap: .3rem; }
+}
+
+@media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .page-title { font-size: 1.2rem; }
+}

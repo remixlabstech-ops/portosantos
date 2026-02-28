@@ -1,0 +1,30 @@
+# Dependências e build
+node_modules/
+vendor/
+dist/
+
+# Credenciais do banco — não versionar em produção
+config/database.php
+
+# Uploads de usuários
+uploads/*.pdf
+uploads/*.jpg
+uploads/*.png
+
+# Arquivos de ambiente
+.env
+.env.local
+
+# Cache e logs
+*.log
+*.cache
+
+# Editores
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
