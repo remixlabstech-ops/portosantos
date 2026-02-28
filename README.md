@@ -4,18 +4,16 @@ Sistema ERP financeiro completo para escritório jurídico, desenvolvido em **PH
 
 ---
 
-## Como Baixar os Arquivos / How to Download
+## Como Baixar e Instalar
 
-### Opção 1 — Baixar como ZIP (sem Git)
+### ⬇️ Passo 1 — Baixar os arquivos
 
-1. Acesse a página do repositório no GitHub:  
-   `https://github.com/remixlabstech-ops/portosantos`
-2. Clique no botão verde **"Code"** (canto superior direito).
-3. Selecione **"Download ZIP"**.
-4. Extraia o arquivo ZIP no diretório raiz do seu servidor web (ex.: `public_html` no InfinityFree).
+**Opção A — Download direto (sem Git, recomendado para iniciantes):**
+1. Acesse: `https://github.com/remixlabstech-ops/portosantos`
+2. Clique no botão verde **"Code"** → **"Download ZIP"**
+3. Extraia o ZIP em alguma pasta do seu computador
 
-### Opção 2 — Clonar com Git
-
+**Opção B — Clonar com Git:**
 ```bash
 git clone https://github.com/remixlabstech-ops/portosantos.git
 cd portosantos
@@ -23,93 +21,126 @@ cd portosantos
 
 ---
 
-## Pré-requisitos
+### 💻 Instalação Local (XAMPP / WAMP / Laragon)
 
-| Requisito | Versão mínima |
-|-----------|--------------|
-| PHP       | 8.0+         |
-| MySQL     | 5.7+ / MariaDB 10.3+ |
-| Extensão PDO + pdo_mysql | habilitada |
-| Servidor web | Apache (com mod_rewrite) ou Nginx |
+> Escolha esta opção para rodar no seu próprio computador, sem precisar de hospedagem.
 
-> **InfinityFree**: o plano gratuito já inclui PHP 8 e MySQL. Basta usar o painel de controle deles.
+#### Pré-requisitos
+
+| Software | Download |
+|----------|----------|
+| XAMPP (recomendado) | https://www.apachefriends.org |
+| Ou WAMP (só Windows) | https://www.wampserver.com |
+| Ou Laragon (só Windows) | https://laragon.org |
+
+#### Passo a Passo
+
+**1. Copiar os arquivos para o servidor local**
+
+| Servidor | Pasta de destino |
+|----------|-----------------|
+| XAMPP (Windows) | `C:\xampp\htdocs\portosantos\` |
+| XAMPP (Linux/Mac) | `/opt/lampp/htdocs/portosantos/` |
+| WAMP | `C:\wamp64\www\portosantos\` |
+| Laragon | `C:\laragon\www\portosantos\` |
+
+Copie **todo o conteúdo** da pasta baixada para o caminho correspondente acima.
+
+**2. Iniciar o XAMPP**
+
+Abra o **XAMPP Control Panel** e clique em **Start** nos serviços:
+- ✅ Apache
+- ✅ MySQL
+
+**3. Criar o banco de dados**
+
+1. Abra o navegador e acesse: `http://localhost/phpmyadmin`
+2. Clique em **"Novo"** (menu esquerdo)
+3. Digite o nome `portosantos` e clique em **"Criar"**
+4. Com o banco `portosantos` selecionado, clique na aba **"Importar"**
+5. Clique em **"Escolher arquivo"** → selecione o arquivo `database.sql` da pasta do projeto
+6. Clique em **"Executar"** (botão no final da página)
+
+**4. Configurar o banco no projeto**
+
+Abra o arquivo `config/database.php` em qualquer editor de texto (Notepad, VS Code, etc.) e confira as linhas:
+
+```php
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');   // não alterar para XAMPP
+define('DB_USER', getenv('DB_USER') ?: 'root');         // não alterar para XAMPP
+define('DB_PASS', getenv('DB_PASS') ?: '');             // XAMPP usa senha em branco por padrão (altere se definiu uma senha)
+define('DB_NAME', getenv('DB_NAME') ?: 'portosantos');  // nome do banco que você criou
+define('DB_PORT', getenv('DB_PORT') ?: '3306');         // não alterar para XAMPP
+```
+
+> Para XAMPP com configuração padrão, os valores acima já estão corretos e **não precisam ser alterados**. Se você definiu uma senha para o MySQL durante a instalação, altere o valor de `DB_PASS`.
+
+**5. Acessar o sistema**
+
+Abra o navegador e acesse:
+```
+http://localhost/portosantos/
+```
 
 ---
 
-## Instalação Passo a Passo
+### 🌐 Instalação em Hospedagem (InfinityFree, Hostinger, etc.)
 
-### 1. Enviar os arquivos para o servidor
+> Escolha esta opção para publicar o sistema na internet.
 
-**InfinityFree (via FTP):**
-1. No painel InfinityFree, vá em **"File Manager"** ou use um cliente FTP (ex.: FileZilla).
-2. Conecte-se com as credenciais FTP exibidas no painel.
-3. Envie **todos os arquivos** da pasta `portosantos/` para `htdocs/` (ou `public_html/`).
+#### Pré-requisitos do servidor
 
-**Servidor local (XAMPP / WAMP / Laragon):**
-```bash
-# Copie a pasta para o diretório web do XAMPP
-cp -r portosantos/ /xampp/htdocs/portosantos/
-```
+| Requisito | Versão mínima |
+|-----------|--------------|
+| PHP | 8.0+ |
+| MySQL | 5.7+ / MariaDB 10.3+ |
+| Extensão PDO + pdo_mysql | habilitada |
+| Apache | com mod_rewrite habilitado |
 
-### 2. Criar e importar o banco de dados
+> **InfinityFree**: plano gratuito já inclui PHP 8 e MySQL ✅
 
-**Via phpMyAdmin (InfinityFree, XAMPP, etc.):**
-1. Acesse o **phpMyAdmin** pelo painel do seu host.
-2. Crie um banco de dados com o nome desejado (ex.: `if0_41229268_ps`).
-3. Selecione o banco criado e clique na aba **"Importar"**.
-4. Escolha o arquivo `database.sql` (raiz do projeto) e clique em **"Executar"**.
+#### Passo a Passo
 
-**Via linha de comando:**
-```bash
-mysql -u SEU_USUARIO -p NOME_DO_BANCO < database.sql
-```
+**1. Enviar os arquivos via FTP**
 
-### 3. Configurar as credenciais do banco
+1. Instale o [FileZilla](https://filezilla-project.org/) (gratuito)
+2. No painel da hospedagem, localize as **credenciais FTP** (host, usuário, senha)
+3. No FileZilla: **Arquivo → Gerenciador de Sites → Novo Site** → preencha os dados FTP
+4. Conecte e envie **todos os arquivos** da pasta do projeto para `public_html/` (ou `htdocs/`)
 
-Edite o arquivo `config/database.php` com os dados do seu banco:
+**2. Criar e importar o banco de dados**
+
+1. No painel da hospedagem, acesse o **phpMyAdmin**
+2. Crie um banco de dados (anote o nome, usuário e senha gerados)
+3. Selecione o banco, clique em **"Importar"** → escolha `database.sql` → **"Executar"**
+
+**3. Configurar as credenciais**
+
+Edite `config/database.php` com os dados fornecidos pela hospedagem:
 
 ```php
-define('DB_HOST', 'seu-host-do-banco');  // ex.: sql100.infinityfree.com
-define('DB_USER', 'seu_usuario');
-define('DB_PASS', 'sua_senha');
-define('DB_NAME', 'nome_do_banco');
-define('DB_PORT', '3306');
+define('DB_HOST', getenv('DB_HOST') ?: 'host-do-banco-fornecido');
+define('DB_USER', getenv('DB_USER') ?: 'usuario_do_banco');
+define('DB_PASS', getenv('DB_PASS') ?: 'senha_do_banco');
+define('DB_NAME', getenv('DB_NAME') ?: 'nome_do_banco');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
 ```
 
-> **Recomendado em produção:** defina variáveis de ambiente no servidor em vez de editar o arquivo diretamente.
+**4. Ajustar permissões das pastas de upload**
 
-### 4. Criar o usuário administrador
-
-Gere um hash seguro para a senha do admin (execute uma única vez):
-
+Via FileZilla ou terminal SSH:
 ```bash
-php -r "echo password_hash('SUA_SENHA_FORTE', PASSWORD_BCRYPT, ['cost' => 12]);"
+chmod 775 uploads/
+chmod 775 uploads/entradas/
+chmod 775 uploads/saidas/
 ```
 
-Em seguida, execute no phpMyAdmin ou via CLI:
+> **Nota:** `775` permite que o servidor web grave arquivos. Se o upload ainda falhar, tente `777` — mas use `777` apenas temporariamente e como último recurso, pois é menos seguro.
 
-```sql
-INSERT INTO `usuarios` (`nome`, `email`, `senha`, `perfil`, `ativo`)
-VALUES ('Administrador', 'admin@portosantos.adv.br', '<hash_gerado_acima>', 'admin', 1);
-```
-
-### 5. Permissões de diretório
-
-Garanta que o servidor web possa gravar nos diretórios de upload:
-
-```bash
-chmod 755 uploads/
-chmod 755 uploads/entradas/
-chmod 755 uploads/saidas/
-```
-
-### 6. Acessar o sistema
-
-Abra o navegador e acesse:
+**5. Acessar o sistema**
 
 ```
-http://localhost/portosantos/          (servidor local)
-https://seu-dominio.infinityfree.net/  (InfinityFree)
+https://seu-dominio.com/
 ```
 
 ---

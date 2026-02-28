@@ -1,11 +1,11 @@
 <?php
-// Database credentials. Override via environment variables in production.
+// Database credentials — set these as environment variables on the server.
+// For local development (XAMPP/WAMP), edit the fallback values below.
 // WARNING: Never commit real credentials to version control.
-// Set DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT as environment variables on the server.
-define('DB_HOST', getenv('DB_HOST') ?: 'sql100.infinityfree.com');
-define('DB_USER', getenv('DB_USER') ?: 'if0_41229268');
-define('DB_PASS', getenv('DB_PASS') ?: 'Porto2026');
-define('DB_NAME', getenv('DB_NAME') ?: 'if0_41229268_ps');
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'portosantos');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');
 
 function getConnection(): PDO {
