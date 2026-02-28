@@ -116,32 +116,90 @@ https://seu-dominio.infinityfree.net/  (InfinityFree)
 
 ## Estrutura de Arquivos
 
+O repositório possui **56 arquivos** distribuídos da seguinte forma:
+
 ```
-portosantos/
-├── api/                  # Endpoints JSON (CRUD + exportação)
-├── assets/
-│   ├── css/style.css     # Estilo ERP (tema claro/escuro)
-│   └── js/               # Módulos JavaScript (ES6+)
+portosantos/                                  (56 arquivos)
+│
+├── .htaccess                                 # Regras Apache: mod_rewrite, bloqueio de listagem
+├── README.md                                 # Esta documentação
+├── database.sql                              # Schema + dados iniciais do banco
+├── database_structure.sql                    # DDL puro (sem dados)
+├── index.php                                 # Roteador principal (front controller)
+│
 ├── config/
-│   └── database.php      # Conexão PDO
-├── controllers/          # Lógica de negócio
-├── models/               # Acesso ao banco de dados
-├── uploads/
-│   ├── entradas/         # Comprovantes de entradas (PDF)
-│   └── saidas/           # Comprovantes de saídas (PDF)
-├── views/
-│   ├── layout/           # Header, sidebar e footer
-│   ├── dashboard/        # Painel principal com gráficos
-│   ├── entradas/         # Módulo de honorários
-│   ├── saidas/           # Módulo de despesas
-│   ├── clientes/         # Cadastro de clientes
-│   ├── fornecedores/     # Cadastro de fornecedores
-│   ├── centros_custo/    # Centros de custo
-│   ├── categorias/       # Categorias receita/despesa
-│   └── inadimplencia/    # Controle de inadimplência
-├── database.sql          # Schema completo do banco
-└── index.php             # Roteador principal
+│   └── database.php                          # Conexão PDO (lê variáveis de ambiente)
+│
+├── api/                                      (9 arquivos)
+│   ├── api_categorias.php
+│   ├── api_centros_custo.php
+│   ├── api_clientes.php
+│   ├── api_dashboard.php
+│   ├── api_entradas.php
+│   ├── api_export.php                        # Exportação CSV de qualquer módulo
+│   ├── api_fornecedores.php
+│   ├── api_inadimplencia.php
+│   └── api_saidas.php
+│
+├── controllers/                              (9 arquivos)
+│   ├── BaseController.php
+│   ├── CategoriaController.php
+│   ├── CentroCustoController.php
+│   ├── ClienteController.php
+│   ├── DashboardController.php
+│   ├── EntradaController.php
+│   ├── FornecedorController.php
+│   ├── InadimplenciaController.php
+│   └── SaidaController.php
+│
+├── models/                                   (8 arquivos)
+│   ├── BaseModel.php
+│   ├── Categoria.php
+│   ├── CentroCusto.php
+│   ├── Cliente.php
+│   ├── Dashboard.php
+│   ├── Entrada.php
+│   ├── Fornecedor.php
+│   └── Saida.php
+│
+├── assets/
+│   ├── css/
+│   │   └── style.css                         # Estilo ERP (tema claro/escuro)
+│   └── js/                                   (9 arquivos)
+│       ├── app.js                            # Utilitários globais (modais, alertas, formatação)
+│       ├── categorias.js
+│       ├── centros_custo.js
+│       ├── clientes.js
+│       ├── dashboard.js                      # Gráficos Chart.js
+│       ├── entradas.js
+│       ├── fornecedores.js
+│       ├── inadimplencia.js
+│       └── saidas.js
+│
+├── views/                                    (12 arquivos)
+│   ├── layout/
+│   │   ├── header.php
+│   │   ├── sidebar.php
+│   │   └── footer.php
+│   ├── categorias/index.php
+│   ├── centros_custo/index.php
+│   ├── clientes/index.php
+│   ├── dashboard/index.php
+│   ├── entradas/index.php
+│   ├── fornecedores/index.php
+│   ├── inadimplencia/index.php
+│   └── saidas/index.php
+│
+└── uploads/                                  (3 arquivos .gitkeep)
+    ├── .gitkeep
+    ├── entradas/.gitkeep                     # Comprovantes de entradas (PDF)
+    └── saidas/.gitkeep                       # Comprovantes de saídas (PDF)
 ```
+
+> **Como verificar:** após baixar/clonar o repositório, execute o comando abaixo e confira se o total é **56**:
+> ```bash
+> find . -not -path './.git/*' -type f | wc -l
+> ```
 
 ---
 
