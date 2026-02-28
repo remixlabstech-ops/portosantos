@@ -1,0 +1,330 @@
+/*
+ * Porto Santos ERP - Main Stylesheet
+ * CSS Variables + Tema Claro/Escuro
+ */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color:  #e74c3c;
+    --info-color:    #2980b9;
+
+    --light-bg:    #ecf0f1;
+    --card-bg:     #ffffff;
+    --border-color:#dde1e7;
+    --text-light:  #34495e;
+    --text-muted:  #7f8c8d;
+    --text-dark:   #ecf0f1;
+
+    --sidebar-width:       250px;
+    --sidebar-collapsed:   60px;
+    --header-height:       60px;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,.12);
+    --radius:    8px;
+    --transition: .2s ease;
+}
+
+body.dark-mode {
+    --primary-color:  #34495e;
+    --light-bg:       #1a252f;
+    --card-bg:        #243342;
+    --border-color:   #2c3e50;
+    --text-light:     #ecf0f1;
+    --text-muted:     #95a5a6;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+    font-size: 14px;
+    background: var(--light-bg);
+    color: var(--text-light);
+    transition: background var(--transition), color var(--transition);
+}
+
+a { color: var(--primary-color); text-decoration: none; }
+
+/* ── App Layout ───────────────────────────────────────────── */
+.app-wrapper { display: flex; flex-direction: column; min-height: 100vh; }
+.app-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--header-height);
+    background: var(--primary-color);
+    color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.25rem;
+    box-shadow: var(--shadow-md);
+}
+.header-left, .header-right { display: flex; align-items: center; gap: .75rem; }
+.logo-circle {
+    width: 34px; height: 34px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: #fff;
+    flex-shrink: 0;
+}
+.logo-text { font-weight: 600; font-size: 15px; color: #fff; }
+.logo-link { display: flex; align-items: center; gap: .5rem; }
+
+.user-badge {
+    display: flex; align-items: center; gap: .4rem;
+    background: rgba(255,255,255,.1);
+    border-radius: 20px;
+    padding: .25rem .75rem;
+    font-size: 13px;
+}
+
+.app-body {
+    display: flex;
+    margin-top: var(--header-height);
+    flex: 1;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+.sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    transition: width var(--transition), transform var(--transition);
+    z-index: 90;
+}
+.sidebar-nav { padding: 1rem 0; }
+.nav-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .7rem 1.25rem;
+    color: var(--text-light);
+    transition: background var(--transition), color var(--transition);
+    font-size: 14px;
+}
+.nav-item:hover, .nav-item.active {
+    background: var(--light-bg);
+    color: var(--secondary-color);
+}
+.nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ── Main Content ─────────────────────────────────────────── */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 0;
+    transition: margin-left var(--transition);
+}
+.page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+.page-title { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--border-color);
+}
+.card-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+
+/* ── KPI Cards ────────────────────────────────────────────── */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.kpi-card {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.25rem;
+    border-left: 4px solid transparent;
+}
+.kpi-green  { border-left-color: var(--success-color); }
+.kpi-red    { border-left-color: var(--danger-color); }
+.kpi-blue   { border-left-color: var(--info-color); }
+.kpi-orange { border-left-color: var(--warning-color); }
+.kpi-icon svg { width: 28px; height: 28px; }
+.kpi-green  .kpi-icon { color: var(--success-color); }
+.kpi-red    .kpi-icon { color: var(--danger-color); }
+.kpi-blue   .kpi-icon { color: var(--info-color); }
+.kpi-orange .kpi-icon { color: var(--warning-color); }
+.kpi-body { display: flex; flex-direction: column; gap: .2rem; }
+.kpi-label { font-size: 12px; color: var(--text-muted); }
+.kpi-value { font-size: 1.3rem; font-weight: 700; }
+.kpi-var   { font-size: 12px; }
+.kpi-var.pos { color: var(--success-color); }
+.kpi-var.neg { color: var(--danger-color); }
+
+/* ── Charts ───────────────────────────────────────────────── */
+.charts-row { margin-bottom: 1.25rem; }
+.chart-card canvas { max-height: 300px; }
+.rankings-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+.table-mini { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table-mini th, .table-mini td { padding: .5rem .75rem; border-bottom: 1px solid var(--border-color); }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .45rem 1rem;
+    border-radius: var(--radius);
+    border: none; cursor: pointer;
+    font-size: 14px; font-weight: 500;
+    transition: opacity var(--transition), filter var(--transition);
+}
+.btn:hover { filter: brightness(1.1); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn svg { width: 16px; height: 16px; }
+.btn-primary   { background: var(--secondary-color); color: #fff; }
+.btn-secondary { background: #6c757d; color: #fff; }
+.btn-success   { background: var(--success-color); color: #fff; }
+.btn-danger    { background: var(--danger-color); color: #fff; }
+.btn-outline   { background: transparent; border: 1px solid var(--border-color); color: var(--text-light); }
+.btn-outline:hover { background: var(--light-bg); }
+.btn-link      { background: none; border: none; color: var(--secondary-color); padding: .2rem .4rem; }
+.btn-sm        { padding: .25rem .6rem; font-size: 12px; }
+.btn-icon {
+    background: transparent; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    padding: .35rem; border-radius: var(--radius);
+    color: inherit; transition: background var(--transition);
+}
+.btn-icon:hover { background: rgba(255,255,255,.15); }
+.btn-icon svg  { width: 20px; height: 20px; }
+
+/* ── Forms ────────────────────────────────────────────────── */
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: .35rem; font-weight: 500; font-size: 13px; }
+.form-control {
+    width: 100%; padding: .5rem .75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--card-bg); color: var(--text-light);
+    font-size: 14px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(231,76,60,.15);
+}
+.form-control-sm { padding: .35rem .6rem; font-size: 13px; }
+.form-row { display: flex; flex-wrap: wrap; gap: .75rem; }
+.form-row .form-group { flex: 1; min-width: 160px; }
+.form-group-actions { display: flex; align-items: flex-end; gap: .5rem; }
+.required { color: var(--danger-color); }
+
+/* ── Table ────────────────────────────────────────────────── */
+.table-responsive { overflow-x: auto; }
+.data-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.data-table th, .data-table td {
+    padding: .65rem .85rem; border-bottom: 1px solid var(--border-color); text-align: left;
+}
+.data-table thead th {
+    background: var(--light-bg); font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted);
+}
+.data-table tbody tr:hover { background: var(--light-bg); }
+.actions-cell { display: flex; gap: .4rem; align-items: center; }
+.text-center { text-align: center; }
+.text-muted  { color: var(--text-muted); }
+
+/* ── Badges ───────────────────────────────────────────────── */
+.badge {
+    display: inline-block; padding: .2rem .55rem;
+    border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+}
+.badge-pago     { background: #d4edda; color: #155724; }
+.badge-pendente { background: #fff3cd; color: #856404; }
+.badge-atrasado { background: #f8d7da; color: #721c24; }
+.badge-aviso    { background: #fff3cd; color: #856404; }
+.badge-erro     { background: #f8d7da; color: #721c24; }
+.badge-vencido  { background: #f0e6ff; color: #6f42c1; }
+
+/* ── Pagination ───────────────────────────────────────────── */
+.pagination { display: flex; gap: .4rem; padding: .75rem 0; flex-wrap: wrap; }
+.page-link {
+    padding: .35rem .65rem; border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    color: var(--text-light); font-size: 13px;
+    transition: background var(--transition);
+}
+.page-link:hover, .page-link.active {
+    background: var(--secondary-color); color: #fff; border-color: var(--secondary-color);
+}
+
+/* ── Filters Card ─────────────────────────────────────────── */
+.filters-card { padding: 1rem 1.25rem; }
+
+/* ── Faixas Buttons ───────────────────────────────────────── */
+.faixas-btn-group { display: flex; flex-wrap: wrap; gap: .4rem; }
+.faixa-btn.active { background: var(--secondary-color); color: #fff; border-color: var(--secondary-color); }
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+.tab-group { display: flex; gap: 0; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); }
+.tab-link {
+    padding: .6rem 1.2rem; font-weight: 500; font-size: 14px;
+    color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: color var(--transition), border-color var(--transition);
+}
+.tab-link:hover   { color: var(--text-light); }
+.tab-link.active  { color: var(--secondary-color); border-bottom-color: var(--secondary-color); }
+
+/* ── Section Header ───────────────────────────────────────── */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.section-header h3 { font-size: 1.1rem; font-weight: 600; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+.app-footer {
+    text-align: center; padding: .75rem;
+    font-size: 12px; color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    background: var(--card-bg);
+}
+
+/* ── Error Page ───────────────────────────────────────────── */
+.error-page {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; min-height: 100vh; gap: 1rem;
+}
+.error-page h1 { font-size: 5rem; color: var(--danger-color); }
+
+/* ── Autocomplete ─────────────────────────────────────────── */
+.autocomplete-dropdown {
+    position: absolute; z-index: 200;
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: var(--radius); box-shadow: var(--shadow-md);
+    max-height: 220px; overflow-y: auto; width: 100%;
+}
+.autocomplete-dropdown .ac-item {
+    padding: .55rem .85rem; cursor: pointer; font-size: 13px;
+    transition: background var(--transition);
+}
+.autocomplete-dropdown .ac-item:hover { background: var(--light-bg); }
+.form-group { position: relative; }
+
+/* ── Radio ────────────────────────────────────────────────── */
+.radio-group { display: flex; gap: 1.5rem; }
+.radio-label { display: flex; align-items: center; gap: .4rem; cursor: pointer; }
+
+/* ── Rateio ───────────────────────────────────────────────── */
+.rateio-item { display: flex; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+.rateio-item select { flex: 2; }
+.rateio-item input  { flex: 1; }
