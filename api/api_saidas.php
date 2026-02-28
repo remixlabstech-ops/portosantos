@@ -8,11 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit(0); }
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/BaseModel.php';
-require_once __DIR__ . '/../models/Entrada.php';
+require_once __DIR__ . '/../models/Saida.php';
 require_once __DIR__ . '/../controllers/BaseController.php';
-require_once __DIR__ . '/../controllers/EntradaController.php';
+require_once __DIR__ . '/../controllers/SaidaController.php';
 
-$controller = new EntradaController();
+$controller = new SaidaController();
 $action     = $_GET['action'] ?? '';
 
 switch ($action) {

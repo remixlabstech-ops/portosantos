@@ -1,51 +1,46 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
-// Assuming we are using PDO for database operations
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit(0); }
 
-class SuppliersAPI {
-    private $db;
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/BaseModel.php';
+require_once __DIR__ . '/../models/Fornecedor.php';
+require_once __DIR__ . '/../controllers/BaseController.php';
+require_once __DIR__ . '/../controllers/FornecedorController.php';
 
-    public function __construct($dbConnection) {
-        $this->db = $dbConnection;
-    }
+$controller = new FornecedorController();
+$action     = $_GET['action'] ?? '';
 
-    // Create a new supplier
-    public function createSupplier($data) {
-        $sql = "INSERT INTO suppliers (name, email, address) VALUES (:name, :email, :address)";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute($data);
-    }
-
-    // Read a supplier by ID
-    public function getSupplier($id) {
-        $sql = "SELECT * FROM suppliers WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([':id' => $id]);
-        return $stmt->fetch();
-    }
-
-    // Update a supplier
-    public function updateSupplier($id, $data) {
-        $data[':id'] = $id;
-        $sql = "UPDATE suppliers SET name = :name, email = :email, address = :address WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute($data);
-    }
-
-    // Delete a supplier
-    public function deleteSupplier($id) {
-        $sql = "DELETE FROM suppliers WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([':id' => $id]);
-    }
-
-    // Search for suppliers
-    public function searchSuppliers($query) {
-        $sql = "SELECT * FROM suppliers WHERE name LIKE :query";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([':query' => "%$query%"]);
-        return $stmt->fetchAll();
-    }
+switch ($action) {
+    case 'listar':
+        echo json_encode($controller->index($_GET));
+        break;
+    case 'buscar':
+        $termo = trim($_GET['q'] ?? '');
+        echo json_encode($controller->search($termo));
+        break;
+    case 'obter':
+        $id = (int)($_GET['id'] ?? 0);
+        echo json_encode($controller->show($id));
+        break;
+    case 'criar':
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        echo json_encode($controller->store($data));
+        break;
+    case 'atualizar':
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        $id   = (int)($_GET['id'] ?? $data['id'] ?? 0);
+        echo json_encode($controller->update($id, $data));
+        break;
+    case 'deletar':
+        $id = (int)($_GET['id'] ?? 0);
+        echo json_encode($controller->destroy($id));
+        break;
+    default:
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Ação inválida']);
 }
-
-?>

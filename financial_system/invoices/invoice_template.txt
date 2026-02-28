@@ -1,7 +1,0 @@
-# Invoice Template
-
-This is a template for invoices.
-
-- Invoice Number:
-- Date:
-- Amount:

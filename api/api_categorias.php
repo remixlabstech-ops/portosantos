@@ -8,16 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit(0); }
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/BaseModel.php';
-require_once __DIR__ . '/../models/Entrada.php';
+require_once __DIR__ . '/../models/Categoria.php';
 require_once __DIR__ . '/../controllers/BaseController.php';
-require_once __DIR__ . '/../controllers/EntradaController.php';
+require_once __DIR__ . '/../controllers/CategoriaController.php';
 
-$controller = new EntradaController();
+$controller = new CategoriaController();
 $action     = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'listar':
-        echo json_encode($controller->index($_GET));
+        echo json_encode($controller->index());
         break;
     case 'criar':
         $data = json_decode(file_get_contents('php://input'), true) ?? [];
@@ -29,8 +29,9 @@ switch ($action) {
         echo json_encode($controller->update($id, $data));
         break;
     case 'deletar':
-        $id = (int)($_GET['id'] ?? 0);
-        echo json_encode($controller->destroy($id));
+        $id   = (int)($_GET['id'] ?? 0);
+        $tipo = $_GET['tipo_categoria'] ?? 'despesa';
+        echo json_encode($controller->destroy($id, $tipo));
         break;
     default:
         http_response_code(400);

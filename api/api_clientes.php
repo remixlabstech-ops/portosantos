@@ -8,16 +8,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit(0); }
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/BaseModel.php';
-require_once __DIR__ . '/../models/Entrada.php';
+require_once __DIR__ . '/../models/Cliente.php';
 require_once __DIR__ . '/../controllers/BaseController.php';
-require_once __DIR__ . '/../controllers/EntradaController.php';
+require_once __DIR__ . '/../controllers/ClienteController.php';
 
-$controller = new EntradaController();
+$controller = new ClienteController();
 $action     = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'listar':
         echo json_encode($controller->index($_GET));
+        break;
+    case 'buscar':
+        $termo = trim($_GET['q'] ?? '');
+        echo json_encode($controller->search($termo));
+        break;
+    case 'obter':
+        $id = (int)($_GET['id'] ?? 0);
+        echo json_encode($controller->show($id));
         break;
     case 'criar':
         $data = json_decode(file_get_contents('php://input'), true) ?? [];
