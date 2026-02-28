@@ -1,52 +1,96 @@
-# Porto Santos Financial System
+# Portosantos
 
-## System Structure
+## Overview
+Portosantos is a comprehensive web application designed to manage various functionalities and services. This README outlines the installation instructions, configuration guide, database setup, deployment details, features, folder structure, and usage documentation to help you get started.
 
-The Porto Santos financial system is designed to manage and optimize financial operations for the Porto Santos port. The architecture consists of several interrelated components that work together to provide a comprehensive solution.
-
-- **User Interface:** A web-based interface for users to interact with the system.
-- **API Layer:** RESTful APIs that facilitate communication between the front end and back end.
-- **Database:** A robust database system to store financial data, user information, transaction records, etc.
-- **Data Processing Module:** Responsible for processing transactions and generating financial reports.
-
-## Features
-
-- **User Management:** Allows for creating, updating, and deleting user accounts.
-- **Transaction Processing:** Handles all types of financial transactions securely and efficiently.
-- **Reporting:** Provides detailed reports and analytics on financial performance.
-- **Notification System:** Alerts users about important updates and reminders related to their accounts.
+## Table of Contents
+1. [Installation Instructions](#installation-instructions)
+2. [Configuration Guide](#configuration-guide)
+3. [Database Setup](#database-setup)
+4. [Deployment](#deployment)
+5. [Features List](#features-list)
+6. [Folder Structure](#folder-structure)
+7. [Usage Documentation](#usage-documentation)
 
 ## Installation Instructions
+To install Portosantos, follow these steps:
+1. **Clone the Repository**:  
+   `git clone https://github.com/remixlabstech-ops/portosantos.git`  
+   `cd portosantos`
 
-1. **Clone the Repository**  
-   Use the following command to clone the repository:
-   ```bash
-   git clone https://github.com/remixlabstech-ops/portosantos.git
+2. **Install Dependencies**:  
+   Make sure you have [Node.js](https://nodejs.org/) installed, then run:  
+   `npm install`
+
+3. **Build the Application**:  
+   `npm run build`
+
+## Configuration Guide
+To configure the application, you need to set up the environment variables:  
+1. Create a `.env` file in the root directory.
+2. Add the following variables:  
+   ```
+   DB_HOST=your_database_host
+   DB_USER=your_database_user
+   DB_PASSWORD=your_database_password
+   DB_NAME=your_database_name
+   PORT=your_port
    ```
 
-2. **Navigate to the Project Directory**  
-   ```bash
-   cd portosantos
-   ```
+## Database Setup
+To set up the database:
+1. **Create a Database**:  
+   Use your database management tool to create a new database with the name specified in your `.env` file.
 
-3. **Install Dependencies**  
-   Make sure you have all the necessary dependencies installed:
-   ```bash
-   npm install
-   ```
+2. **Run Migrations**:  
+   After creating the database, run the following command:  
+   `npm run migrate`
 
-4. **Set Up Environment Variables**  
-   Create a `.env` file in the root directory and set up the required configurations.
+## Deployment
+To deploy the application to InfinityFree:
+1. **Register for an InfinityFree Account**:  
+   Go to [InfinityFree](https://www.infinityfree.net/) and sign up.
 
-5. **Start the Application**  
-   To run the application, execute:
-   ```bash
-   npm start
-   ```
+2. **Upload Files**:  
+   Use their file manager or an FTP client to upload your project files.
 
-6. **Access the Application**  
-   Open your web browser and navigate to `http://localhost:3000` to access the financial system.
+3. **Set Up Database**:  
+   Create your database in the InfinityFree control panel and import the SQL files as needed.
 
-## Conclusion
+4. **Configure Environment Variables**:  
+   Ensure that your `.env` file is updated as per the InfinityFree environment.
 
-The Porto Santos financial system is designed to streamline financial operations and provide valuable insights for users. For more information or support, refer to the documentation or contact the support team.
+5. **Test Your Application**:  
+   Visit your deployed application's URL to ensure everything is working correctly.
+
+## Features List
+- User Authentication
+- Role-Based Access Control
+- Dynamic Content Management
+- API Integration
+- Multi-language Support
+
+## Folder Structure
+```
+portosantos/
+├── src/
+│   ├── components/
+│   ├── services/
+│   ├── utils/
+│   └── index.js
+├── public/
+├── .env
+├── README.md
+└── package.json
+```
+
+## Usage Documentation
+Once the application is up and running, you can access it through your browser. The following endpoints are available:
+- `/api/login`: User login
+- `/api/register`: User registration
+- `/api/dashboard`: User dashboard
+
+For detailed API usage and additional features, refer to the API documentation.
+
+---
+For support and contributions, please open an issue or a pull request on this repository.
